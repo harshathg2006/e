@@ -1,0 +1,91 @@
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "arn:aws:sns:us-east-1:748827982367:MyEmailTopic",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:::my-upload-bucket-2026-harsha"
+        },
+        "StringEquals": {
+          "aws:SourceAccount": "748827982367"
+        }
+      }
+    }
+  ]
+}
+
+&&&&&&&&&&&&&&&
+
+
+def lambda_handler(event, context):
+    for record in event['Records']:
+        print("Message received from SQS:")
+        print(record['body'])
+
+    return {
+        'statusCode': 200,
+        'body': 'Message processed successfully'
+    }
+***
+
+sns:-
+
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowS3Publish",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "SNS:Publish",
+      "Resource": "YOUR_SNS_TOPIC_ARN",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "YOUR_S3_BUCKET_ARN"
+        },
+        "StringEquals": {
+          "aws:SourceAccount": "YOUR_ACCOUNT_ID"
+        }
+      }
+    }
+  ]
+}
+
+
+##### sqs :-
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "sns.amazonaws.com"
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "YOUR_SQS_QUEUE_ARN",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "YOUR_SNS_TOPIC_ARN"
+        }
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+

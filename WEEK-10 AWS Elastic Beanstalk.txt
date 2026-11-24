@@ -1,0 +1,98 @@
+1. application.py
+
+
+from flask import Flask
+
+application = Flask(__name__)
+
+@application.route("/")
+def home():
+    return """
+    <h1>Week-10 AWS Elastic Beanstalk</h1>
+    <h2>Application Deployed Successfully!</h2>
+    <p>This application is running on AWS Cloud.</p>
+    """
+
+
+
+
+requirements.txt :- Flask
+
+&&&&&&&&&&&&&&&&&
+
+
+
+WEEK-10: AWS Elastic Beanstalk
+
+Create ZIP file :-
+
+Week10-app
+
+application.py
+
+requirements.txt
+
+
+
+1. application.py
+
+Copy this code:
+
+from flask import Flask
+
+application = Flask(__name__)
+
+@application.route("/")
+def home():
+    return """
+    <h1>Week-10 AWS Elastic Beanstalk</h1>
+    <h2>Application Deployed Successfully!</h2>
+    <p>This application is running on AWS Cloud.</p>
+    """
+
+
+&&&&&&&&&&&&&&&&&
+
+requirements.txt :- Flask
+
+********************
+Create Elastic Beanstalk Application
+On the Elastic Beanstalk dashboard:
+1. Click Create application.
+2. Enter the following details:
+Field	Value
+Application name	week10-app
+Leave other settings as default.
+Click Create.
+
+Create Environment
+Now open your week10-app application.
+1. Click Create environment.
+2. Select Web server environment.
+3. Click Next or Select (depending on your console screen).
+
+Configure Environment
+Enter these details:
+Field	Value
+Environment tier	Web server environment
+Environment name	week10-app-env
+Domain	Leave default
+Platform	Python
+Platform branch	Latest available Python 3 version
+Platform version	Recommended version
+
+– Application Code
+Under Application code:
+1. Select Upload your code.
+2. Version label: week10-v1
+3. Click Choose file.
+4. Select your week10-app.zip.
+
+Configure Service Access and Permissions
+Scroll down to Service access in the Elastic Beanstalk environment configuration.
+
+Use the following settings:
+Field	Selection
+Service role	aws-elasticbeanstalk-service-role (if available)
+EC2 instance profile	aws-elasticbeanstalk-ec2-role (if available)
+EC2 key pair	Leave empty (SSH is not required)

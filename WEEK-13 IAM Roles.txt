@@ -1,0 +1,137 @@
+WEEK-13: IAM Roles    >>> ec2-instance-connect
+
+def :- AWS automatically provides temporary security credentials to the EC2 instance through its attached IAM Role.
+
+Step 1 – Create an IAM Role
+First, log in to AWS using your Root account.
+1. Search for IAM in the AWS Console.
+2. Open IAM.
+3. Click Roles in the left sidebar.
+4. Click Create role.
+
+Step 2 – Select Trusted Entity
+On the Create role page:
+1. Under Trusted entity type, select AWS service.
+2. Under Service or use case, select EC2.
+3. Click Next.
+
+Step 3 – Add Permissions
+1. Search for AmazonS3FullAccess.
+2. Tick the checkbox beside it.
+3. Click Next.
+
+
+Step 4 – Name the Role
+Enter:
+EC2-S3-Role
+
+Click Create role.
+
+Step 5 – Create an EC2 instance
+1. Search for EC2.
+2. Open EC2 Dashboard.
+3. Click Launch instances.
+
+Configure the instance
+
+Setting	Select
+
+Name	        IAM-Role-Practice
+AMI	        Ubuntu Server
+Instance type	t3.micro if eligible and within your free-plan allowance
+Key pair	Create a new key pair
+Network	        Default VPC
+Security group	Allow SSH (port 22) from My IP
+Storage  	Default
+
+Step 6 – Attach IAM Role to EC2 Instance
+Now we need to attach your EC2-S3-Role to your EC2 instance.
+1. Open EC2 Dashboard.
+2. Click Instances.
+3. Select your running instance (IAM-Role-Practice).
+4. Click Actions.
+5. Select Security → Modify IAM role.
+6. Under IAM role, select:
+EC2-S3-Role
+7. Click Update IAM role.
+
+Step 7 – Connect to EC2
+1. Select your EC2 instance.
+2. Click Connect.
+3. Choose EC2 Instance Connect.
+4. Click Connect.   (A terminal window should open.)
+
+if not open try this :-
+{{{
+
+
+1. Open your EC2 instance's Security tab.
+2. Click its Security Group.
+3. Select Edit inbound rules.
+4. Click Add rule.
+5. Configure:
+Field	Value
+Type	SSH
+Protocol	TCP
+Port	22
+Source type	Custom
+
+6. In the Source search field, search for:
+   ec2-instance-connect  (Wait for the dropdown results.)
+Step 2 – Select the matching prefix list
+Look for an actual selectable entry corresponding to:
+
+com.amazonaws.eu-north-1.ec2-instance-connect
+
+Click that result. Don't just leave the text typed in the field.
+
+7.Select the matching IPv4 prefix list.
+8.Click Save rules.
+
+&&&  Try again  &&&
+Return to EC2 → Instances → select myfirst → Connect → EC2 Instance Connect → Connect.
+
+}}}}}
+
+Step 8 – Verify / Test S3 access
+Inside the EC2 terminal, execute:
+
+sudo apt update
+
+sudo apt install awscli -y
+
+
+aws s3 ls
+
+Expected result: The command executes successfully and displays your S3 buckets (or no output if you have no buckets).
+
+
+Step 11 – Test EC2 permission (Access Denied)
+Now execute:
+
+aws ec2 describe-instances --region eu-north-1
+
+
+Expected result
+You should get an error similar to:
+An error occurred (UnauthorizedOperation)
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+to Check AWS identity
+Run:
+aws sts get-caller-identity
+
+
+Expected output:
+{
+    "UserId": "AROAXXXXX:i-039085166c589829c",
+    "Account": "YOUR_ACCOUNT_ID",
+    "Arn": "arn:aws:sts::YOUR_ACCOUNT_ID:assumed-role/EC2-S3-Role/..."
+}
+
+
+
+
+
+

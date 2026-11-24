@@ -1,0 +1,56 @@
+WEEK-12 Part B – AWS CLI Access.
+
+Our next task is to generate access keys for S3_Specialist.
+
+Open IAM → Users → S3_Specialist → Security credentials → Access keys.
+
+Click Create access key and select Command Line Interface (CLI).
+
+Step 1 – Confirm access key creation
+1. Keep Command Line Interface (CLI) selected.
+2. Tick the checkbox
+
+Step 2 – Set description tag
+On the next screen, enter:
+AWS-CLI-Practice
+Click Create access key.
+
+Step 3 – Retrieve access keys
+AWS will display two values:
+- Access key ID
+- Secret access key
+
+>>Download the CSV file and store it safely on your computer.
+
+Step 4 :  In CMD, execute:
+          aws configure
+
+It will ask you for four details.
+
+AWS CLI prompt	What to enter
+AWS Access Key ID	Your IAM access key ID
+AWS Secret Access Key	Your IAM secret access key
+Default region name	eu-north-1
+Default output format	json
+**********************************
+Enter the credentials from your S3_Specialist access key CSV, not your root account credentials.
+
+Step 5 – Test AWS CLI connection
+First, test whether your IAM user can access S3.
+
+Execute:
+aws s3 ls
+
+
+Expected result: Your S3 bucket name should appear in the output.
+
+Now test EC2:
+aws ec2 describe-instances --region eu-north-1
+
+
+Expected result:
+An error occurred (UnauthorizedOperation)
+
+Create an S3 bucket using CLI:-
+aws s3 mb s3://harsha-iam-cli-week12-2026
+

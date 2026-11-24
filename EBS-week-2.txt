@@ -1,0 +1,59 @@
+Attach the EBS volume to EC2
+
+1. Select the newly created volume.
+2. Click Actions → Attach volume.
+3. Select your Week2-EC2 instance.
+4. Device name: /dev/sdf.
+5. Click Attach volume.
+
+Connect to the EC2 instance
+
+1. Go to EC2 → Instances.
+2. Select Week2-EC2.
+3. Click Connect.
+4. Select EC2 Instance Connect.
+5. Click Connect.
+
+A terminal will open in your browser.
+
+Verify the attached EBS volume:- lsblk
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Increase CPU and RAM by changing EC2 instance type :-
+
+we will change the instance from t2.micro to t2.medium.
+
+Stop the EC2 instance
+
+1. Open EC2 → Instances.
+2. Select Week2-EC2.
+3. Click Instance state.
+4. Select Stop instance.
+5. Confirm by clicking Stop.
+6. Wait until the instance state becomes Stopped
+
+Change the instance type
+
+1. Select the stopped instance.
+2. Click Actions.
+3. Select Instance settings.
+4. Click Change instance type.
+Select t2.medium.
+Click Apply.
+
+Start the EC2 instance
+
+1. Select the instance.
+2. Click Instance state.
+3. Select Start instance.
+4. Wait until the instance state becomes Running
+
+%%%% Step 4: Verify the new CPU and RAM :-
+
+Run: lscpu
+(This displays CPU information)
+
+Run: free -h
+(This displays RAM information)
+

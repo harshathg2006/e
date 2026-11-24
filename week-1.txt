@@ -1,0 +1,141 @@
+
+Create Windows EC2 instance :-
+
+
+Go to EC2 → Instances.
+
+
+
+Click Launch instances.
+
+
+
+Name: CloudLab-Windows.
+
+
+
+Under Application and OS Images, select Windows.
+
+
+
+Choose Windows Server 2022 or another suitable Windows Server AMI.
+
+
+Configure security group :-
+
+
+Type	Port	Source
+
+
+RDP	3389	My IP
+
+
+Click Launch instance.
+
+
+Go to EC2 → Instances.
+
+
+
+Select CloudLab-Windows.
+
+
+
+Copy its Public IPv4 address.
+
+
+Select your Windows instance.
+
+
+
+Click Connect.
+
+
+
+Select RDP client.
+
+
+
+Click Get password.
+
+
+
+Upload the Windows instance's .pem key file.
+
+
+
+Click Decrypt password.
+
+
+
+Copy the Administrator password.
+
+On your laptop:
+
+
+1. Press Windows + R.
+
+
+2. Type:  mstsc
+
+Press Enter.
+
+
+3. In Computer, enter your Windows EC2 Public IP.
+
+4. Click Connect.
+
+Enter the credentials:
+
+Field	Value
+
+Username	Administrator
+
+Password	Decrypted password
+
+
+Click OK.
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Connect Ubuntu using AWS CloudShell:-
+
+
+Login to AWS Console.
+
+Click the CloudShell terminal icon at the top-right.
+
+
+Wait for the terminal to open.
+
+
+Click the + (Actions) icon.
+
+
+Select Upload file.
+
+
+Upload cloudlab-key.pem.
+
+## Run:   chmod 400 cloudlab-key.pem
+
+Connect to Ubuntu:-EC2 → Instances → Select Ubuntu → Connect → SSH client.
+
+
+
+ssh -i "cloudlab-key.pem" ubuntu@YOUR_PUBLIC_IP     , Paste it into CloudShell and press Enter.
+
+If asked to continue connecting, type: yes
+
+Verify:   whoami
+
+
+
+
+
+
+
+
+
+
